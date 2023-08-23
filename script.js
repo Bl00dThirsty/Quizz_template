@@ -24,10 +24,12 @@ continueBtn.onclick = () => {
 
     showQuestions(0);
     questionCounter(1);
+    headerScore();
 }
 
 let questionCount = 0;
 let questionNumb = 1;
+let userScore = 0;
 
 const nextBtn = document.querySelector('.next-btn');
 
@@ -72,12 +74,14 @@ function optionSelected(answer) {
     let userAnswer = answer.textContent;
     let correctAnswer = questions[questionCount].answer;
     let allOptions = optionList.children.length;
-    
+
     
 
     if (userAnswer == correctAnswer) {
         console.log('reponse correcte');
         answer.classList.add('correct');
+        userScore += 1;
+        headerScore();
     }
     else {
         console.log('reponse incorrecte');
@@ -85,11 +89,18 @@ function optionSelected(answer) {
     }
 
 // si l'utilisateur a selectionné une question, desactiver le reste
-
+    for (let i = 0; i < allOptions; i++) {
+        optionList.children[i].classList.add('disabled')
+    }
 
 }
 
 function questionCounter(index) {
     const questionTotal = document.querySelector('.question-total');
     questionTotal.textContent = `${index} sur ${questions.length} Questions`;
+}
+
+function headerScore() {
+    const headerScoreText = document.querySelector('.head-score');
+    headerScoreText.textContent = `Score: ${userScore} / ${questions.length}`;
 }
