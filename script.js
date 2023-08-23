@@ -86,6 +86,12 @@ function optionSelected(answer) {
     else {
         console.log('reponse incorrecte');
         answer.classList.add('incorrect');
+// si la reponse est fausse selectionner automatiquement la bonne réponse
+        for (let i = 0; i < allOptions; i++) {
+            if (optionList.children[i].textContent == correctAnswer) {
+                optionList.children[i].setAttribute('class', 'option correct');
+            }
+        }
     }
 
 // si l'utilisateur a selectionné une question, desactiver le reste
