@@ -10,7 +10,14 @@
 <body>
     <main class="main">
         <header class="header">
-            <a href="" class="logo">Quiz.</a>
+            <div class="col-xs-2">
+                <div id="logo">
+                    <a>
+                        <img class="normal_logo" src="PRÉSENTATION 4G1.png" alt="image"
+                                             title="" style="max-height:90px;"/> QUIZZ 
+                    </a>
+                </div>
+            </div>
             <nav class="navbar">
                 <a href="#" class="active">Acceuil</a>
                <!--<a href="#">A propops</a>
@@ -54,6 +61,24 @@
                         <button class="next-btn">Suivant</button>
                     </div>
                 </div>
+
+
+
+                <div class="result-box">
+                    <h2>Résultat du test!</h2>
+                    <div class="percentage-container">
+                        <div class="cicular-progress">
+                            <span class="progress-value">0%</span>
+                        </div>
+
+                        <span class="score-text">Votre score est de 0 sur 10</span>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="TryAgain-btn">Reessayer</button>
+                        <button class="goHome-btn">Acceuil</button>
+                    </div>
+                </div>
             </section>
             <section class="home">
                 <div class="home-content">
@@ -77,6 +102,18 @@
             <a href="#" class="info-btn continue-btn">Continue</a>
         </div>
     </div>
+    
+    <div class="result_box">
+        <div class="complete_text"></div>
+        <div class="score_text">
+        
+        </div>
+        <div class="button">
+            <button class="restart"> Refaire le quiz</button>
+            <button class="quit">Quitter</button>
+        </div>
+    </div>
+    
     <script src="questions.js"></script>
     <script src="script.js"></script>
 </body>
