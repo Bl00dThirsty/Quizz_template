@@ -7,7 +7,9 @@ const quizSection = document.querySelector('.quiz-section');
 const quizBox = document.querySelector('.quiz-box');
 const timeCount = quizBox.querySelector(".timer .timer_sec"); 
 const timeLine = quizBox.querySelector(".quiz-header .time_line");
-const result_box = document.querySelector(".result_box");//interface pour afficher le score
+const result_box = document.querySelector(".result-box");
+const TryAgain = document.querySelector('.TryAgain-btn'); 
+//interface pour afficher le score
 
 startBtn.onclick = () => {
     popupInfo.classList.add('active');
@@ -24,7 +26,7 @@ continueBtn.onclick = () => {
     popupInfo.classList.remove('active');
     main.classList.remove('active');
     quizBox.classList.add('active');
-    result_box.classList.add('active');
+    /*result_box.classList.add('active');*/
     
 
     showQuestions(0);
@@ -54,15 +56,17 @@ nextBtn.onclick = () => {
 
         questionNumb++;
         questionCounter(questionNumb);
+
         clearInterval(counter);
         startTimer(timeValue);
         clearInterval(counterLine);
         startTimerLine(widthValue);
-        nextBtn.classList.remove('active');
-        //nextBtn.style.display = "none";
+
+        //nextBtn.classList.remove('active');
+        nextBtn.style.display = "none";
     }
     else {
-        console.log('Question complétée');
+        //console.log('Question complétée');
         showResultBox();
     }
     
@@ -127,11 +131,22 @@ function optionSelected(answer) {
         optionList.children[i].classList.add('disabled');
     }
     
-    nextBtn.classList.add('active')
+    //nextBtn.classList.add('active')
 
-   // nextBtn.style.display = "block";//si l'utilisateur clique sur une option, le bouton 'suivant' reaparait
+    nextBtn.style.display = "block";//si l'utilisateur clique sur une option, le bouton 'suivant' reaparait
     
 
+}
+
+//=============================================================================================
+//-----------------------------FONCTION_BLOCAGE------------------------------------------------
+
+function disableAnswerbuttons(){
+    let allOptions = optionList.children.length;
+
+        for (let i = 0; i < allOptions; i++){
+            optionList.children[i].classList.add('disabled');
+        }
 }
 
 function questionCounter(index) {
@@ -144,24 +159,10 @@ function headerScore() {
     headerScoreText.textContent = `Score: ${userScore} / ${questions.length}`;
 }
 
-function showResultBox(){ //box pour afficher le score du candidat
-    popupInfo.classList.remove('active');
-    main.classList.remove('active');
-    quizBox.classList.remove('active');
-    result_Box.classList.add('active');
-    const scoreText = result_box.querySelector(".score_text");
-    if(userScore > 4){
-       let scoreTag = "<span>Felicitation, vous avez reussi le test avec la note de "+ userScore +" sur "+ questions.length +"</span>";
-       scoreText.innerHTML = scoreTag;
-    }
-    else{
-        let scoreTag = "<span>Desolez, vous n'avez pas reussi le test votre note est de "+ userScore +" sur "+ questions.length +"</span>";
-        scoreText.innerHTML = scoreTag;   
-    }
-    
-}
 
 function startTimer(time){
+    
+
     counter = setInterval(timer, 1000);
     function timer(){
         timeCount.textContent = time;
@@ -171,18 +172,23 @@ function startTimer(time){
             timeCount.textContent = "0" + addZero;
 
         }
-        if(time < 0){
+        if(time < 0){ 
             clearInterval(counter);
             timeCount.textContent = "00";
-       }
-       /// if(time < 0){
-           /// nextBtn.style.display = "block";//si le temp est ecouler le bouton suivant reaparait
-        ///}
+        }
+        if(time < 0){
+        nextBtn.style.display = "block";//si le temps est ecoulé le bouton suivant reapparait
+        }
+        if(time < 0){
+            disableAnswerbuttons();
+        }
       
 
     }
 
 }
+
+
 
 function startTimerLine(time){
     counterLine = setInterval(timer, 29);
@@ -194,4 +200,43 @@ function startTimerLine(time){
         }
     }
 
+}
+
+function  showResultBox() {
+    quizBox.classList.remove('active');
+    result_box.classList.add('active');
+
+    const score_text = document.querySelector('.score-text');
+    score_text.textContent = `Votre score est de ${userScore} sur ${questions.length}`;
+
+    if(userScore < 5){
+        TryAgain.classList.add('active');
+    }
+    else{
+        TryAgain.classList.remove('active');
+    }
+
+
+
+    const circularProgress = document.querySelector('.cicular-progress');
+    const progressValue = document.querySelector('.progress-value');
+
+    let progressStartValue = -1;
+    let progressEndValue = (userScore / questions.length) * 100;
+    let speed = 20;
+
+    let progress = setInterval(() => {
+        progressStartValue++;
+        //console.log(progressStartValue);
+        progressValue.textContent = `${progressStartValue}%`;
+        circularProgress.style.background = `conic-gradient(#c40094 ${progressStartValue * 3.6}deg, rgba(255, 255, 255, .1) 0deg)`;
+
+
+        if (progressStartValue == progressEndValue) {
+
+            clearInterval(progress);
+
+        }
+
+    }, speed);
 }
