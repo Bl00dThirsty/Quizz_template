@@ -23,7 +23,7 @@ let questions = [
     },
     {
         numb: 3,
-        question: "Quel est le chef lieu de la region de l'ouest?",
+        question: "Quel est le chef lieu de la region de l'Ouest?",
         answer: "C. bafoussam",
         options: [
             "A. yaounde",
@@ -34,7 +34,7 @@ let questions = [
     },
     {
         numb: 4,
-        question: "czao vkjrk gerg pur eor ",
+        question: "Quel est le chef lieu de la region de l'Est?",
         answer: "D. bertoua",
         options: [
             "A. yaounde",
@@ -45,7 +45,7 @@ let questions = [
     },
     {
         numb: 5,
-        question: "godeoo c ec wlncz c mze",
+        question: "Quel est le chef lieu de la region du Littoral?",
         answer: "B. douala",
         options: [
             "A. yaounde",
